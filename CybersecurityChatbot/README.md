@@ -1,5 +1,14 @@
 # Cybersecurity Awareness Chatbot
 
+## 👨‍💻 Author
+
+**Nenguda Bono**
+- **Student ID**: ST10484954
+- **Course**: Prog 6221
+- **Institution**:RoseBank college
+- **Project**: PROG 6221 POE Part 1
+
+
 A command-line chatbot application designed to educate users about cybersecurity topics in South Africa. This is Part 1 of the portfolio of evidence for the Cybersecurity Awareness initiative.
 
 ## Features
