@@ -1,0 +1,83 @@
+# Build results
+[Bb]in/
+[Obj]/
+[Oo]ut/
+
+# Build results
+[x86]/
+[amd64]/
+
+# Visual Studio files
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Visual Studio Code
+.vscode/
+
+# Packages
+*.nupkg
+# The packages folder can be ignored because of PackageRestore
+**/[Pp]ackages/*
+# except build/, which is used as an MSBuild target.
+!**/[Pp]ackages/build/
+# Uncomment if necessary however generally it will be regenerated when needed
+#!**/[Pp]ackages/repositories.config
+
+# NuGet v3's project.json files produces more ignorable files
+*.nuget.props
+*.nuget.targets
+
+# Optional NuGet cache
+*.nupkg
+
+# Optional REPL history
+*.repl
+
+# .DS_Store
+.DS_Store
+
+# Thumbnails
+._*
+
+# IDE
+.idea/
+.vs/
+
+# Debugging
+*.pdb
+
+# Vs code
+.vscode/
+
+# Backup files
+*.bak
+
