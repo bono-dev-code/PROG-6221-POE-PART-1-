@@ -60,11 +60,11 @@ CybersecurityChatbot/
    dotnet build
    ```
 
-### Recording Your Voice Greeting
+### Greeting.WAV
 
-1. Record a voice message welcoming users (e.g., "Hello! Welcome to the Cybersecurity Awareness Bot. I'm here to help you stay safe online.")
-2. Save the audio file as `greeting.wav` in the `Resources` folder
-3. The audio file must be in WAV format for compatibility with System.Media
+1.A voice message with a welcoming users ( "Hello! Welcome to the Cybersecurity Awareness Bot. I'm here to help you stay safe online.")
+2.The audio file is saved as `greeting.wav` in the `Resources` folder
+3. The audio file is  in WAV format for compatibility with System.Media
 
 ### Running the Application
 
@@ -72,68 +72,6 @@ CybersecurityChatbot/
 dotnet run
 ```
 
-## GitHub Setup
-
-### Initial Setup
-
-1. Create a new repository on GitHub
-2. Initialize git in your project:
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial commit: Set up project structure"
-   ```
-3. Add your GitHub repository as remote:
-   ```bash
-   git remote add origin https://github.com/yourusername/CybersecurityChatbot.git
-   git push -u origin main
-   ```
-
-### Making Commits
-
-Make at least 6 meaningful commits with descriptive messages:
-- Initial commit: Set up project structure
-- Added Models: User and Response classes
-- Added Services: Audio, Chatbot, and UI services
-- Implemented voice greeting functionality
-- Added ASCII art and console UI enhancements
-- Implemented response system with input validation
-- Final polish and testing
-
-### Setting Up GitHub Actions CI
-
-1. Create `.github/workflows` directory
-2. Create a workflow file (e.g., `dotnet.yml`):
-
-```yaml
-name: .NET CI
-
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v3
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: '8.0.x'
-    - name: Restore dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
-```
-
-3. Commit and push the workflow file
-4. Verify the CI workflow runs successfully (green check mark)
 
 ## Video Presentation
 
@@ -144,20 +82,8 @@ Record a video presentation (8-10 minutes) explaining:
 - Console UI formatting techniques
 - Demo of the running application
 
-Upload as an unlisted YouTube video and include the link in your submission.
+Uploaded as an unlisted YouTube video and the link in submission.
 
-## Requirements Checklist
-
-- [x] Voice greeting (WAV file required)
-- [x] ASCII art image display
-- [x] Text-based greeting and user interaction
-- [x] Basic response system for cybersecurity topics
-- [x] Input validation
-- [x] Enhanced console UI with colors and formatting
-- [x] Code structure with separate classes and methods
-- [x] GitHub repository with minimum 6 commits
-- [x] GitHub Actions CI workflow
-- [x] Video presentation
 
 ## License
 
