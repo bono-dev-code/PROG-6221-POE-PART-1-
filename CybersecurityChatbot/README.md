@@ -89,3 +89,19 @@ Uploaded as an unlisted YouTube video and the link in submission.
 
 This project is for educational purposes.
 
+## References
+
+1. Australian Cyber Security Centre (2023) *Small Business Cyber Security Guide*. Australian Government. Available at: https://www.cybersecurity.gov.au .
+
+2. Blank, S. (2013) 'It's Not About the Technology', *Stanford Business*. Available at: https://gblank.sites.stanford.edu .
+
+3. Cisco (2023) *Cybersecurity Fundamentals*. Cisco Networking Academy. Available at: https://www.netacad.com .
+
+4. Interpol (2023) *Cybercrime in Africa: Facts and Figures*. Interpol. Available at: https://www.interpol.int .
+
+5. South African Banking Risk Information Centre (SABRIC) (2023) *Annual Crime Statistics 2022*. SABRIC. Available at: https://www.sabric.co.za .
+
+6. National Institute of Standards and Technology (NIST) (2020) *Security and Privacy Controls for Information Systems and Organizations*. NIST Special Publication 800-53. Available at: https://csrc.nist.gov/publications .
+
+7. KnowBe4 (2023) *Phishing Security Awareness Training*. KnowBe4 Inc. Available at: https://www.knowbe4.com .
+
