@@ -13,7 +13,7 @@ namespace CybersecurityChatbot.Services
 
         public AudioService(string audioFilePath)
         {
-            _audioFilePath = audioFilePath;
+            _audioFilePath = audioFilePath ?? string.Empty;
         }
 
         /// <summary>
@@ -23,18 +23,19 @@ namespace CybersecurityChatbot.Services
         {
             try
             {
-                if (File.Exists(_audioFilePath))
-                {
-                    SoundPlayer player = new SoundPlayer(_audioFilePath);
-                    player.PlaySync(); // Play synchronously
-                    Console.WriteLine();
-                }
-                else
+                if (string.IsNullOrEmpty(_audioFilePath) || !File.Exists(_audioFilePath))
                 {
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine("[Audio file not found. Please ensure greeting.wav is in the Resources folder.]");
                     Console.ResetColor();
+                    return;
                 }
+
+                using (SoundPlayer player = new SoundPlayer(_audioFilePath))
+                {
+                    player.PlaySync(); // Play synchronously
+                }
+                Console.WriteLine();
             }
             catch (Exception ex)
             {
@@ -94,3 +95,4 @@ namespace CybersecurityChatbot.Services
         }
     }
 }
+
