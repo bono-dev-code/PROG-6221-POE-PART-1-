@@ -84,6 +84,15 @@ Record a video presentation (8-10 minutes) explaining:
 
 Uploaded as an unlisted YouTube video and the link in submission.
 
+## Continuous Integration (CI)
+
+This project uses GitHub Actions for Continuous Integration.  
+Every time code is pushed to the repository, the workflow automatically builds the .NET project to ensure there are no syntax or compilation errors.
+
+### Successful CI Run
+
+![CI Success](ci-success.png)
+
 
 ## License
 
