@@ -23,6 +23,16 @@ namespace CybersecurityChatbot.Services
         {
             try
             {
+                // Platform guard: SoundPlayer.PlaySync is only supported on Windows.
+                // Use OperatingSystem.IsWindows() so the analyzer recognizes the guard and the call is safe.
+                if (!OperatingSystem.IsWindows())
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("[Audio playback skipped: This feature is only supported on Windows.]");
+                    Console.ResetColor();
+                    return;
+                }
+
                 if (string.IsNullOrEmpty(_audioFilePath) || !File.Exists(_audioFilePath))
                 {
                     Console.ForegroundColor = ConsoleColor.Yellow;
@@ -33,7 +43,7 @@ namespace CybersecurityChatbot.Services
 
                 using (SoundPlayer player = new SoundPlayer(_audioFilePath))
                 {
-                    player.PlaySync(); // Play synchronously
+                    player.PlaySync(); // Play synchronously (guarded by Windows platform check)
                 }
                 Console.WriteLine();
             }
