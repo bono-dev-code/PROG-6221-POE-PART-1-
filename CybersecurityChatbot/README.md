@@ -1,7 +1,5 @@
 # Cybersecurity Awareness Chatbot
 
-## 👨‍💻 Author
-
 **Nenguda Bono**
 - **Student ID**: ST10484954
 - **Course**: Prog 6221
@@ -10,6 +8,9 @@
 
 
 A command-line chatbot application designed to educate users about cybersecurity topics in South Africa. This is Part 1 of the portfolio of evidence for the Cybersecurity Awareness initiative.
+
+## Language used 
+- *C#*
 
 ## Features
 
@@ -24,12 +25,8 @@ A command-line chatbot application designed to educate users about cybersecurity
   - Social Engineering
   - South Africa-specific cyber threats
 - **Input Validation**: Handles unexpected or invalid inputs gracefully
-- **Enhanced Console UI**: Uses colors, borders, and formatting for a better user experience
 
-## Project Structure
-
-```
-CybersecurityChatbot/
+## C# Project Structure\n\n```\nCybersecurityChatbot/
 ├── Models/
 │   ├── User.cs              # User class with automatic properties
 │   └── Response.cs          # Response model and response bank
