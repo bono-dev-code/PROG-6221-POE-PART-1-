@@ -7,52 +7,48 @@ using CybersecurityChatbot.Models;
 namespace CybersecurityChatbot.Services
 {
     /// <summary>
-    /// Service for handling chatbot responses and conversation logic
+    /// Handles chatbot logic, keyword matching, and responses
     /// </summary>
     public class ChatbotService
     {
         private readonly List<Response> _responses;
+        private readonly Random _random;
         private User _currentUser;
 
         public ChatbotService()
         {
             _responses = ResponseBank.GetResponses();
+            _random = new Random();
             _currentUser = new User();
         }
 
-        /// <summary>
-        /// Sets the current user
-        /// </summary>
         public void SetUser(User user)
         {
             _currentUser = user;
         }
 
-        /// <summary>
-        /// Gets the current user
-        /// </summary>
         public User GetCurrentUser()
         {
             return _currentUser;
         }
 
-        /// <summary>
-        /// Validates user input
-        /// </summary>
+        // =========================
+        // INPUT VALIDATION
+        // =========================
         public bool IsValidInput(string input)
         {
             if (string.IsNullOrWhiteSpace(input))
                 return false;
-            
+
             if (input.Trim().Length < 2)
                 return false;
 
             return true;
         }
 
-        /// <summary>
-        /// Generates a response based on user input
-        /// </summary>
+        // =========================
+        // MAIN RESPONSE HANDLER
+        // =========================
         public string GetResponse(string userInput)
         {
             if (!IsValidInput(userInput))
@@ -60,86 +56,110 @@ namespace CybersecurityChatbot.Services
                 return GetInvalidInputResponse();
             }
 
-            // Normalize input for comparison
-            string normalizedInput = userInput.ToLower().Trim();
-            
-            // Check each response for keyword matches
+            string normalizedInput = NormalizeInput(userInput);
+
             foreach (var response in _responses)
             {
-                foreach (var keyword in response.Keywords)
+                if (MatchesAnyKeyword(normalizedInput, response.Keywords))
                 {
-                    // Use word boundary matching for better accuracy
-                    if (Regex.IsMatch(normalizedInput, $@"\b{Regex.Escape(keyword)}\b", RegexOptions.IgnoreCase))
+                    string selected = GetRandomResponse(response);
+
+                    if (response.Category == "Exit")
                     {
-                        // Handle exit commands
-                        if (response.Category == "Exit")
-                        {
-                            return FormatExitResponse(response.ResponseText);
-                        }
-                        return response.ResponseText;
+                        return selected.Replace("{userName}", _currentUser.Name);
                     }
+
+                    return selected;
                 }
             }
 
-            // No match found - return default response
             return GetDefaultResponse();
         }
 
-        /// <summary>
-        /// Formats exit response with user name
-        /// </summary>
-        private string FormatExitResponse(string response)
+        // =========================
+        // NORMALIZE INPUT
+        // =========================
+        private string NormalizeInput(string input)
         {
-            return response.Replace("{userName}", _currentUser.Name);
+            return input.ToLower().Trim();
         }
 
-        /// <summary>
-        /// Gets response for invalid input
-        /// </summary>
+        // =========================
+        // FIXED KEYWORD MATCHING (IMPORTANT)
+        // =========================
+        private bool MatchesAnyKeyword(string input, IEnumerable<string> keywords)
+        {
+            foreach (string keyword in keywords)
+            {
+                string normalizedKeyword = keyword.ToLower().Trim();
+
+                // Exact match
+                if (input == normalizedKeyword)
+                {
+                    return true;
+                }
+
+                // Match full word / phrase only
+                string pattern = $@"\b{Regex.Escape(normalizedKeyword)}\b";
+
+                if (Regex.IsMatch(input, pattern, RegexOptions.IgnoreCase))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        // =========================
+        // RANDOM RESPONSE
+        // =========================
+        private string GetRandomResponse(Response response)
+        {
+            if (response.ResponseOptions == null || response.ResponseOptions.Count == 0)
+            {
+                return "I am sorry, I do not have a response for that yet.";
+            }
+
+            return response.ResponseOptions[_random.Next(response.ResponseOptions.Count)];
+        }
+
+        // =========================
+        // INVALID INPUT RESPONSES
+        // =========================
         private string GetInvalidInputResponse()
         {
-            string[] responses = new[]
+            string[] responses =
             {
-                "I didn't quite understand that. Could you rephrase?",
-                "Sorry, I didn't catch that. Can you try again?",
-                "I'm not sure I understand. Could you phrase that differently?",
-                "That doesn't seem to match any of my cybersecurity topics. Try asking about passwords, phishing, or safe browsing!"
+                "I did not quite understand that. Please type a full question.",
+                "That input seems incomplete. Try asking about passwords, phishing, or safe browsing.",
+                "Please enter a meaningful message so I can assist you properly.",
+                "I am here to help with cybersecurity topics. Try asking something like 'What is phishing?'"
             };
 
-            Random random = new Random();
-            return responses[random.Next(responses.Length)];
+            return responses[_random.Next(responses.Length)];
         }
 
-        /// <summary>
-        /// Gets default response for unrecognized input
-        /// </summary>
+        // =========================
+        // DEFAULT RESPONSES
+        // =========================
         private string GetDefaultResponse()
         {
-            string[] responses = new[]
+            string[] responses =
             {
-                "I'm not sure I understand that. Try asking about:\n" +
-                "  🔐 Passwords - How to stay secure\n" +
-                "  🎣 Phishing - Avoiding scams\n" +
-                "  🔗 Safe Browsing - Internet safety\n" +
-                "  🛡️ Malware - Virus protection\n\n" +
-                "Or type 'help' for more options!",
+                "I am not sure I understand that yet. Try asking about:\n" +
+                "• Password safety\n" +
+                "• Phishing scams\n" +
+                "• Safe browsing\n" +
+                "• Malware\n" +
+                "• Online privacy",
 
-                "I don't have information on that topic yet. Here are some things I can help with:\n" +
-                "  • Password safety\n" +
-                "  • Phishing awareness\n" +
-                "  • Safe browsing practices\n" +
-                "  • Malware protection\n\n" +
-                "What would you like to know?",
+                "That topic is outside my current knowledge. I can help with passwords, scams, malware, privacy, and safe browsing.",
 
-                "That's outside my area of expertise. I'm here to help with cybersecurity! Try asking:\n" +
-                "  'How do I create a strong password?'\n" +
-                "  'What is phishing?'\n" +
-                "  'How do I stay safe online?'"
+                "Could you rephrase that? I work best with cybersecurity topics like phishing, suspicious links, and passwords."
             };
 
-            Random random = new Random();
-            return responses[random.Next(responses.Length)];
+            return responses[_random.Next(responses.Length)];
         }
     }
 }
-

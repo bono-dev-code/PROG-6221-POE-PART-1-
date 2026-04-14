@@ -1,27 +1,26 @@
-using System;
 using System.Collections.Generic;
 
 namespace CybersecurityChatbot.Models
 {
     /// <summary>
-    /// Represents a chatbot response with keywords and response text
+    /// Represents a chatbot response with keywords and multiple response options.
     /// </summary>
     public class Response
     {
         public string[] Keywords { get; set; }
-        public string ResponseText { get; set; }
+        public List<string> ResponseOptions { get; set; }
         public string Category { get; set; }
 
-        public Response(string[] keywords, string responseText, string category = "General")
+        public Response(string[] keywords, List<string> responseOptions, string category = "General")
         {
             Keywords = keywords;
-            ResponseText = responseText;
+            ResponseOptions = responseOptions;
             Category = category;
         }
     }
 
     /// <summary>
-    /// Static class containing all predefined chatbot responses
+    /// Static class containing all predefined chatbot responses.
     /// </summary>
     public static class ResponseBank
     {
@@ -29,131 +28,202 @@ namespace CybersecurityChatbot.Models
         {
             return new List<Response>
             {
-                // Greeting responses
-                new Response(new[] { "hello", "hi", "hey", "greetings" }, 
-                    "Hello! Welcome to the Cybersecurity Awareness Bot. How can I help you stay safe online today?", "Greeting"),
-                
-                new Response(new[] { "how are you", "how do you do" }, 
-                    "I'm doing great, thank you for asking! I'm here to help you learn about cybersecurity. What would you like to know?", "Greeting"),
+                new Response(
+                    new[] { "hello", "hi", "hey", "greetings" },
+                    new List<string>
+                    {
+                        "Hello! Welcome to the Cybersecurity Awareness Bot. I am ready to help you stay safe online today.",
+                        "Hi there! I am your Cybersecurity Awareness Assistant. Ask me anything about online safety.",
+                        "Hey! I am here to guide you through important cybersecurity tips and safe online habits."
+                    },
+                    "Greeting"
+                ),
 
-                // Purpose and capabilities
-                new Response(new[] { "purpose", "what can you do", "what do you do" }, 
-                    "I'm your Cybersecurity Awareness Assistant! I can help you learn about:\n" +
-                    "  🔐 Password Safety - Creating and managing secure passwords\n" +
-                    "  🎣 Phishing - Identifying and avoiding scam emails/messages\n" +
-                    "  🔗 Safe Browsing - Staying safe while browsing the internet\n" +
-                    "  🛡️ General Cybersecurity Tips\n\n" +
-                    "Just ask me about any of these topics!", "Information"),
+                new Response(
+                    new[] { "how are you", "how do you do" },
+                    new List<string>
+                    {
+                        "I am doing great, thank you for asking. I am ready to help you learn how to stay safe online.",
+                        "I am doing well. My goal is to help you understand cybersecurity in a simple and useful way."
+                    },
+                    "Greeting"
+                ),
 
-                // Help keyword (general)
-                new Response(new[] { "help" }, 
-                    "I'm here to help you with cybersecurity! You can ask about:\n" +
-                    "  🔐 Passwords - Creating secure passwords\n" +
-                    "  🎣 Phishing - Avoiding scams\n" +
-                    "  🔗 Safe Browsing - Internet safety\n" +
-                    "  🛡️ Malware - Virus protection\n" +
-                    "  🎭 Social Engineering\n" +
-                    "  🇿🇦 South Africa specific issues\n\n" +
-                    "Type 'help me' or 'more topics' to see all topics!", "Help"),
+                new Response(
+                    new[] { "purpose", "what can you do", "what do you do", "your purpose", "what is your purpose" },
+                    new List<string>
+                    {
+                        "I am your Cybersecurity Awareness Assistant. I can help you with password safety, phishing, scams, safe browsing, malware, social engineering, suspicious links, and online privacy.",
+                        "My purpose is to educate users about cybersecurity threats and teach safe online practices in a simple conversation."
+                    },
+                    "Purpose"
+                ),
 
-                // Password safety
-                new Response(new[] { "password", "passwords", "secure password", "strong password" }, 
-                    "🔐 PASSWORD SAFETY TIPS:\n\n" +
-                    "1. Use at least 12 characters with a mix of letters, numbers, and symbols\n" +
-                    "2. Never reuse passwords across different accounts\n" +
-                    "3. Consider using a password manager\n" +
-                    "4. Enable two-factor authentication (2FA) when available\n" +
-                    "5. Never share your password with anyone\n\n" +
-                    "Would you like more specific advice?", "Password Safety"),
+                new Response(
+                    new[] { "what can i ask you about", "topics", "help", "help me", "more topics", "what else" },
+                    new List<string>
+                    {
+                        "You can ask me about:\n" +
+                        "• Password safety\n" +
+                        "• Phishing and scams\n" +
+                        "• Safe browsing\n" +
+                        "• Malware protection\n" +
+                        "• Social engineering\n" +
+                        "• Two-factor authentication\n" +
+                        "• Suspicious links\n" +
+                        "• Online privacy\n" +
+                        "• South African cyber threats",
 
-                new Response(new[] { "password manager", "password vault" }, 
-                    "A password manager is a tool that securely stores all your passwords in an encrypted vault.\n" +
-                    "Benefits:\n" +
-                    "  ✓ You only need to remember one master password\n" +
-                    "  ✓ Generates strong, unique passwords for each account\n" +
-                    "  ✓ Automatically fills login forms\n\n" +
-                    "Popular options include LastPass, Dashlane, and Bitwarden.", "Password Safety"),
+                        "I can help with many cybersecurity topics such as passwords, phishing, malware, privacy, social engineering, suspicious links, and safe browsing."
+                    },
+                    "Help"
+                ),
 
-                // Phishing
-                new Response(new[] { "phishing", "phish", "scam", "scam email", "suspicious email" }, 
-                    "🎣 PHISHING AWARENESS:\n\n" +
-                    "Phishing is when scammers try to trick you into revealing personal information.\n\n" +
-                    "Warning Signs:\n" +
-                    "  ⚠ Urgent or threatening language\n" +
-                    "  ⚠ Suspicious sender addresses\n" +
-                    "  ⚠ Links that don't match the displayed text\n" +
-                    "  ⚠ Requests for personal or financial information\n" +
-                    "  ⚠ Poor grammar and spelling\n\n" +
-                    "What to do: Don't click! Delete and report suspicious messages.", "Phishing"),
+                new Response(
+                    new[] { "password", "passwords", "strong password", "secure password" },
+                    new List<string>
+                    {
+                        "🔐 PASSWORD SAFETY TIPS:\n" +
+                        "1. Use at least 12 characters.\n" +
+                        "2. Mix uppercase letters, lowercase letters, numbers, and symbols.\n" +
+                        "3. Do not reuse passwords across accounts.\n" +
+                        "4. Avoid personal details like your name or birthday.\n" +
+                        "5. Use a password manager where possible.",
 
-                new Response(new[] { "phishing report", "report phishing" }, 
-                    "To report phishing in South Africa:\n" +
-                    "  📧 Forward suspicious emails to: safe@cybercrime.org.za\n" +
-                    "  📱 Report SMS scams to: 7726 (SMS)\n" +
-                    "  🌐 Visit: www.cybercrime.org.za\n\n" +
-                    "You can also report to your bank if you've shared financial information.", "Phishing"),
+                        "A strong password should be long, unique, and difficult to guess. Avoid names, dates of birth, phone numbers, and common words. A password manager can help you create and store strong passwords safely."
+                    },
+                    "Password Safety"
+                ),
 
-                // Safe browsing
-                new Response(new[] { "browsing", "safe browsing", "internet safety", "online safety" }, 
-                    "🔗 SAFE BROWSING TIPS:\n\n" +
-                    "1. Always check for HTTPS (lock icon) before entering personal information\n" +
-                    "2. Be cautious with public Wi-Fi - avoid sensitive transactions\n" +
-                    "3. Keep your browser and software updated\n" +
-                    "4. Use pop-up blockers and ad blockers\n" +
-                    "5. Don't download files from untrusted sources\n" +
-                    "6. Be careful what personal info you share on social media\n\n" +
-                    "Want to learn more about any specific topic?", "Safe Browsing"),
+                new Response(
+                    new[] { "password manager", "password vault" },
+                    new List<string>
+                    {
+                        "A password manager stores your passwords securely in one place. It also helps generate strong and unique passwords so you do not need to reuse the same one everywhere.",
+                        "Using a password manager is one of the best ways to improve password security. You only need to remember one strong master password."
+                    },
+                    "Password Safety"
+                ),
 
-                // Malware
-                new Response(new[] { "malware", "virus", "ransomware", "trojan", "malicious software" }, 
-                    "🛡️ MALWARE PROTECTION:\n\n" +
-                    "Malware is malicious software designed to damage or gain unauthorized access.\n\n" +
-                    "Protection Tips:\n" +
-                    "  ✓ Keep your antivirus software updated\n" +
-                    "  ✓ Don't open attachments from unknown sources\n" +
-                    "  ✓ Be careful with USB drives\n" +
-                    "  ✓ Regular backups are essential\n" +
-                    "  ✓ Keep your operating system updated\n\n" +
-                    "Signs of infection: Slow computer, unexpected pop-ups, strange behavior.", "Malware"),
+                new Response(
+                    new[] { "2fa", "two factor authentication", "multi factor authentication", "mfa" },
+                    new List<string>
+                    {
+                        "🛡️ TWO-FACTOR AUTHENTICATION:\n" +
+                        "Two-factor authentication adds an extra layer of security. Even if someone steals your password, they still need the second verification step to access your account.",
+                        "Enable two-factor authentication on important accounts like email, banking, and social media. It is one of the best ways to reduce account hijacking."
+                    },
+                    "Authentication"
+                ),
 
-                // Social engineering
-                new Response(new[] { "social engineering", "pretexting", "baiting" }, 
-                    "🎭 SOCIAL ENGINEERING:\n\n" +
-                    "This is when attackers manipulate you into giving up confidential information.\n\n" +
-                    "Common Types:\n" +
-                    "  • Pretexting: Creating a fake scenario to get info\n" +
-                    "  • Baiting: Offering something enticing to hook you\n" +
-                    "  • Quid Pro Quo: Offering a service for information\n\n" +
-                    "Remember: Always verify the identity of anyone requesting information!", "Social Engineering"),
+                new Response(
+                    new[] { "phishing", "phish", "scam", "scams", "scam email", "fake email" },
+                    new List<string>
+                    {
+                        "🎣 PHISHING AWARENESS:\n" +
+                        "Phishing is when criminals pretend to be trusted people or companies to trick you into giving away passwords, banking details, or other personal information.\n\n" +
+                        "Warning signs include:\n" +
+                        "• Urgent or threatening language\n" +
+                        "• Strange sender addresses\n" +
+                        "• Suspicious links\n" +
+                        "• Requests for personal information\n" +
+                        "• Poor spelling and grammar",
 
-                // South Africa specific
-                new Response(new[] { "south africa", "sa", "south african" }, 
-                    "🇿🇦 CYBERSECURITY IN SOUTH AFRICA:\n\n" +
-                    "South Africa has seen a significant rise in cyberattacks. Here's what you should know:\n\n" +
-                    "  • Vishing (voice phishing) calls are common\n" +
-                    "  • SIM swap fraud is prevalent\n" +
-                    "  • Online banking scams are widespread\n" +
-                    "  • Government institutions are often targeted\n\n" +
-                    "  The Cybercrimes Act of 2020 criminalizes various cyber offenses.\n" +
-                    "  Report incidents at: www.cybercrime.org.za", "South Africa"),
+                        "If a message pressures you to click quickly, confirm account details, or send personal information, it may be phishing. Stop, verify the sender, and never rush."
+                    },
+                    "Phishing"
+                ),
 
-                // General help (more specific keywords)
-                new Response(new[] { "help me", "need help", "what else", "more topics" }, 
-                    "You can ask me about:\n" +
-                    "  🔐 Passwords - How to create secure passwords\n" +
-                    "  🎣 Phishing - Spotting scam emails and messages\n" +
-                    "  🔗 Safe Browsing - Staying safe online\n" +
-                    "  🛡️ Malware - Protecting against viruses\n" +
-                    "  🎭 Social Engineering - Avoiding manipulation\n" +
-                    "  🇿🇦 South Africa - Local cybersecurity issues\n\n" +
-                    "Just type your question!", "Help"),
+                new Response(
+                    new[] { "safe browsing", "browsing", "internet safety", "online safety", "browse safely" },
+                    new List<string>
+                    {
+                        "🔗 SAFE BROWSING TIPS:\n" +
+                        "1. Check for HTTPS before entering personal information.\n" +
+                        "2. Avoid downloading files from unknown websites.\n" +
+                        "3. Keep your browser updated.\n" +
+                        "4. Do not click suspicious pop-ups.\n" +
+                        "5. Avoid sensitive transactions on public Wi-Fi.",
 
-                // Exit
-                new Response(new[] { "bye", "goodbye", "exit", "quit", "thank you", "thanks" }, 
-                    "Thank you for using the Cybersecurity Awareness Bot! Remember to stay safe online. 😊\n\n" +
-                    "Goodbye, {userName}! Come back anytime you have questions about cybersecurity.", "Exit")
+                        "Safe browsing means thinking before you click. Always check website legitimacy, avoid suspicious downloads, and keep your browser and device updated."
+                    },
+                    "Safe Browsing"
+                ),
+
+                new Response(
+                    new[] { "malware", "virus", "trojan", "ransomware", "worm" },
+                    new List<string>
+                    {
+                        "🦠 MALWARE PROTECTION:\n" +
+                        "Malware is harmful software that can steal data, damage files, or spy on you. Keep antivirus software updated, avoid suspicious downloads, and never open unknown attachments.",
+                        "Signs of malware can include a slow computer, strange pop-ups, missing files, or programs opening on their own. Regular updates and backups help protect you."
+                    },
+                    "Malware"
+                ),
+
+                new Response(
+                    new[] { "social engineering", "manipulation", "pretexting", "baiting" },
+                    new List<string>
+                    {
+                        "🎭 SOCIAL ENGINEERING:\n" +
+                        "Social engineering is when attackers manipulate people into revealing sensitive information. They often pretend to be trusted people, support staff, or institutions.",
+                        "Always verify before sharing information. A convincing story, urgent request, or emotional pressure is often a sign of social engineering."
+                    },
+                    "Social Engineering"
+                ),
+
+                new Response(
+                    new[] { "privacy", "online privacy", "protect my privacy" },
+                    new List<string>
+                    {
+                        "🔒 ONLINE PRIVACY TIPS:\n" +
+                        "Review privacy settings on your social media accounts, share less personal information publicly, use strong passwords, and enable two-factor authentication.",
+                        "Protecting your privacy means controlling what you share, who can see it, and how your accounts are secured."
+                    },
+                    "Privacy"
+                ),
+
+                new Response(
+                    new[] { "link", "links", "suspicious link", "unsafe link" },
+                    new List<string>
+                    {
+                        "Before clicking a link, ask yourself: Do I trust the sender? Does the address look correct? Is the message trying to scare or rush me? If something feels wrong, do not click.",
+                        "Hover over a link before clicking it. If the real destination looks strange or unrelated to the message, it may be unsafe."
+                    },
+                    "Suspicious Links"
+                ),
+
+                new Response(
+                    new[] { "identity theft", "stolen identity", "identity" },
+                    new List<string>
+                    {
+                        "Identity theft happens when criminals steal your personal information and use it fraudulently. Protect your ID number, passwords, banking information, and one-time pins.",
+                        "To reduce identity theft risk, do not overshare online, use strong passwords, and be careful with forms, fake calls, and suspicious messages."
+                    },
+                    "Identity Theft"
+                ),
+
+                new Response(
+                    new[] { "south africa", "sa", "south african", "cybercrime act", "sim swap" },
+                    new List<string>
+                    {
+                        "🇿🇦 SOUTH AFRICAN CYBERSECURITY:\n" +
+                        "South Africa faces online banking scams, phishing, SIM swap fraud, fake job scams, and social media impersonation. Citizens should be extra cautious with banking alerts, OTP requests, and calls asking for personal details.",
+                        "In South Africa, SIM swap fraud and banking scams are common. Never share one-time pins, account details, or passwords with anyone over the phone."
+                    },
+                    "South Africa"
+                ),
+
+                new Response(
+                    new[] { "bye", "goodbye", "exit", "quit", "thank you", "thanks" },
+                    new List<string>
+                    {
+                        "Thank you for using the Cybersecurity Awareness Bot. Stay safe online, {userName}!",
+                        "Goodbye, {userName}. Remember: think before you click and protect your information online."
+                    },
+                    "Exit"
+                )
             };
         }
     }
 }
-
