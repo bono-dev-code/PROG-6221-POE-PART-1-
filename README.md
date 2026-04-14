@@ -87,7 +87,7 @@ dotnet run
 
 ## Video Presentation
 
-Record a video presentation (8-10 minutes) explaining:
+Recorded a video presentation explaining:
 - Code structure and organization
 - How the chatbot logic works
 - Voice integration implementation
