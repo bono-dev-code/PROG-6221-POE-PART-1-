@@ -24,7 +24,14 @@ A command-line chatbot application designed to educate users about cybersecurity
   - Malware Protection
   - Social Engineering
   - South Africa-specific cyber threats
+  - Two-Factor Authentication (2FA)
+  - Identity Theft Protection
+  - Suspicious Links Detection
 - **Input Validation**: Handles unexpected or invalid inputs gracefully
+- **Session Tracking**: Records messages exchanged and session duration
+- **Multiple Response Variants**: Dynamic, varied responses per topic
+- **Advanced Keyword Matching**: Regex-based full-word/phrase detection
+- **Enhanced Console UI**: Typing effects, text wrapping, color-coded output
 
 ## C# Project Structure\n\n```\nCybersecurityChatbot/
 ├── Models/
@@ -38,13 +45,20 @@ A command-line chatbot application designed to educate users about cybersecurity
 │   └── greeting.wav        # Voice greeting file (you need to record this)
 ├── Program.cs              # Main program entry point
 └── CybersecurityChatbot.csproj
-```
+
+### Technical Highlights
+- **Robust Keyword Matching**: Uses regex with word boundaries (`\\bkeyword\\b`) for precise matching
+- **Randomized Responses**: Multiple variants per topic prevent repetition
+- **Input Normalization**: Handles case, whitespace, and validation gracefully
+- **Flexible Audio Loading**: Searches multiple paths for greeting.wav
+- **Console UI Polish**: Colors, typing effects, wrapped text, centered headers
+- **Session Analytics**: Tracks user interactions and displays summary
 
 ## Getting Started
 
 ### Prerequisites
 
-- .NET 8.0 SDK or later
+- **.NET 8.0 SDK or later** (required for modern C# features)
 - Windows operating system (for audio playback)
 
 ### Installation
@@ -69,6 +83,7 @@ A command-line chatbot application designed to educate users about cybersecurity
 dotnet run
 ```
 
+**Session ends with summary showing messages exchanged and duration.**
 
 ## Video Presentation
 
