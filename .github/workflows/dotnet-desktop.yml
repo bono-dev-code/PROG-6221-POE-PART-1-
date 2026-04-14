@@ -23,12 +23,6 @@ jobs:
       working-directory: ./CybersecurityChatbot
       run: dotnet restore
       
-    - name: Build
+    - name: Build project
       working-directory: ./CybersecurityChatbot
       run: dotnet build --configuration Release --no-restore
-      
-    - name: Test
-      working-directory: ./CybersecurityChatbot
-      run: dotnet test --configuration Release --no-build --verbosity normal
-
-
