@@ -4,188 +4,147 @@ using System.Threading;
 namespace CybersecurityChatbot.Services
 {
     /// <summary>
-    /// Service for handling console UI formatting and visual elements
+    /// Handles all console UI formatting and display
     /// </summary>
     public class UIService
     {
-        // Console colors
         private readonly ConsoleColor _primaryColor = ConsoleColor.Cyan;
         private readonly ConsoleColor _secondaryColor = ConsoleColor.White;
         private readonly ConsoleColor _accentColor = ConsoleColor.Green;
-        private readonly ConsoleColor _warningColor = ConsoleColor.Yellow;
         private readonly ConsoleColor _errorColor = ConsoleColor.Red;
+        private readonly ConsoleColor _infoColor = ConsoleColor.Yellow;
 
-        /// <summary>
-        /// Displays the ASCII art logo for the chatbot
-        /// </summary>
+        // =========================
+        // ASCII ART HEADER
+        // =========================
         public void DisplayAsciiArt()
         {
+            Console.Clear();
             Console.ForegroundColor = _primaryColor;
-            Console.WriteLine(@"");
-            Console.WriteLine(@"   ██████╗ ███████╗████████╗██████╗  ██████╗  █████╗ ██████╗  ██████╗  ");
-            Console.WriteLine(@"  ██╔════╝ ██╔════╝╚══██╔══╝██╔══██╗██╔═══██╗██╔══██╗██╔══██╗██╔═══██╗ ");
-            Console.WriteLine(@"  ██║  ███╗█████╗     ██║   ██████╔╝██║   ██║███████║██████╔╝██║   ██║ ");
-            Console.WriteLine(@"  ██║   ██║██╔══╝     ██║   ██╔══██╗██║   ██║██╔══██║██╔══██╗██║   ██║ ");
-            Console.WriteLine(@"  ╚██████╔╝███████╗   ██║   ██║  ██║╚██████╔╝██║  ██║██║  ██║╚██████╔╝ ");
-            Console.WriteLine(@"   ╚═════╝ ╚══════╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝  ");
-            Console.WriteLine(@"");
-            Console.WriteLine(@"        ╔═══════════════════════════════════════════════╗        ");
-            Console.WriteLine(@"        ║   CYBERSECURITY AWARENESS BOT v1.0            ║        ");
-            Console.WriteLine(@"        ║   Protecting South Africans Online            ║        ");
-            Console.WriteLine(@"        ╚═══════════════════════════════════════════════╝        ");
-            Console.WriteLine(@"");
+
+            Console.WriteLine();
+            Console.WriteLine(" ██████╗██╗   ██╗██████╗ ███████╗██████╗ ");
+            Console.WriteLine("██╔════╝╚██╗ ██╔╝██╔══██╗██╔════╝██╔══██╗");
+            Console.WriteLine("██║      ╚████╔╝ ██████╔╝█████╗  ██████╔╝");
+            Console.WriteLine("██║       ╚██╔╝  ██╔══██╗██╔══╝  ██╔══██╗");
+            Console.WriteLine("╚██████╗   ██║   ██████╔╝███████╗██║  ██║");
+            Console.WriteLine(" ╚═════╝   ╚═╝   ╚═════╝ ╚══════╝╚═╝  ╚═╝");
+
+            Console.WriteLine();
+            Console.WriteLine("════════════════════════════════════════════════════════════");
+            Console.WriteLine("        CYBERSECURITY AWARENESS CHATBOT (SA EDITION)       ");
+            Console.WriteLine("════════════════════════════════════════════════════════════");
+
             Console.ResetColor();
             Console.WriteLine();
         }
 
-        /// <summary>
-        /// Displays a decorative header
-        /// </summary>
+        // =========================
+        // HEADER
+        // =========================
         public void DisplayHeader(string title)
         {
             Console.ForegroundColor = _primaryColor;
-            int borderWidth = Math.Max(title.Length + 4, 60);
-            string border = new string('═', borderWidth);
-            int paddingLeft = (borderWidth - title.Length) / 2;
-            string centeredTitle = new string(' ', paddingLeft) + title;
-            Console.WriteLine($"\n{border}");
-            Console.WriteLine(centeredTitle);
-            Console.WriteLine(border);
+            Console.WriteLine("════════════════════════════════════════════════════════════");
+            Console.WriteLine(CenterText(title, 60));
+            Console.WriteLine("════════════════════════════════════════════════════════════");
             Console.ResetColor();
             Console.WriteLine();
         }
 
-        /// <summary>
-        /// Displays a section divider
-        /// </summary>
-        public void DisplayDivider()
-        {
-            Console.ForegroundColor = _secondaryColor;
-            Console.WriteLine(new string('─', 60));
-            Console.ResetColor();
-        }
-
-        /// <summary>
-        /// Displays a box frame for messages
-        /// </summary>
-        public void DisplayBox(string message, bool isUser = false)
-        {
-            ConsoleColor frameColor = isUser ? _accentColor : _primaryColor;
-            ConsoleColor textColor = isUser ? _secondaryColor : _secondaryColor;
-
-            string[] lines = message.Split('\n');
-            int maxLength = 0;
-            foreach (var line in lines)
-            {
-                if (line.Length > maxLength)
-                    maxLength = line.Length;
-            }
-
-            maxLength = Math.Max(maxLength, 20);
-
-            // Calculate border width: accounts for ║ + space + content + space + ║
-            int borderWidth = maxLength + 2;
-
-            Console.ForegroundColor = frameColor;
-            Console.Write("╔");
-            Console.Write(new string('═', borderWidth));
-            Console.WriteLine("╗");
-
-            foreach (var line in lines)
-            {
-                Console.ForegroundColor = frameColor;
-                Console.Write("║ ");
-                Console.ForegroundColor = textColor;
-                Console.Write(line.PadRight(maxLength));
-                Console.ForegroundColor = frameColor;
-                Console.WriteLine(" ║");
-            }
-
-            Console.ForegroundColor = frameColor;
-            Console.Write("╚");
-            Console.Write(new string('═', borderWidth));
-            Console.WriteLine("╝");
-            Console.ResetColor();
-        }
-
-        /// <summary>
-        /// Displays a welcome message with formatting
-        /// </summary>
+        // =========================
+        // WELCOME MESSAGE
+        // =========================
         public void DisplayWelcomeMessage(string userName)
         {
-            // Calculate the maximum width needed for the box
-            string[] welcomeLines = new string[]
-            {
-                "        W E L C O M E   T O   O U R   C H A T B O T        ",
-                "     Your Personal Cybersecurity Awareness Assistant       "
-            };
-            
-            int maxWelcomeLength = 0;
-            foreach (var line in welcomeLines)
-            {
-                if (line.Length > maxWelcomeLength)
-                    maxWelcomeLength = line.Length;
-            }
-            
-            // Calculate border width to match content: ║ + 2 spaces + content + 2 spaces + ║
-            int borderWidth = maxWelcomeLength + 4;
-            string topBorder = "╔" + new string('═', borderWidth) + "╗";
-            string middleBorder = "║" + new string(' ', borderWidth) + "║";
-            string bottomBorder = "╚" + new string('═', borderWidth) + "╝";
-            
             Console.ForegroundColor = _accentColor;
-            Console.WriteLine();
-            Console.WriteLine(topBorder);
-            Console.WriteLine(middleBorder);
-            Console.WriteLine($"║  {welcomeLines[0].PadRight(maxWelcomeLength)}  ║");
-            Console.WriteLine(middleBorder);
-            Console.WriteLine($"║  {welcomeLines[1].PadRight(maxWelcomeLength)}  ║");
-            Console.WriteLine(middleBorder);
-            Console.WriteLine(bottomBorder);
+            Console.WriteLine($"Welcome, {userName}!");
             Console.ResetColor();
 
-            Console.ForegroundColor = _secondaryColor;
+            DisplayTypingEffect("I am your Cybersecurity Awareness Assistant.");
+            DisplayTypingEffect("Ask me anything about staying safe online.");
+
             Console.WriteLine();
-            Console.WriteLine($"  Hello, {userName}! 👋");
-            Console.WriteLine();
-            Console.WriteLine("  I'm here to help you stay safe online!");
-            Console.WriteLine("  You can ask me about:");
-            Console.WriteLine();
-            Console.ForegroundColor = _accentColor;
-            Console.WriteLine("    🔐  Password Safety");
-            Console.WriteLine("    🎣  Phishing & Scams");
-            Console.WriteLine("    🔗  Safe Browsing");
-            Console.WriteLine("    🛡️  Malware Protection");
-            Console.WriteLine("    🎭  Social Engineering");
-            Console.WriteLine("    🇿🇦  South Africa Cyber Threats");
+            Console.ForegroundColor = _infoColor;
+            Console.WriteLine("You can ask about:");
+            Console.WriteLine("• Password safety");
+            Console.WriteLine("• Phishing scams");
+            Console.WriteLine("• Malware");
+            Console.WriteLine("• Safe browsing");
+            Console.WriteLine("• Privacy");
+            Console.WriteLine("• Social engineering");
             Console.ResetColor();
-            Console.WriteLine();
-            DisplayDivider();
             Console.WriteLine();
         }
 
-        /// <summary>
-        /// Displays user input prompt
-        /// </summary>
+        // =========================
+        // USER PROMPT
+        // =========================
         public void DisplayPrompt(string userName)
         {
             Console.ForegroundColor = _accentColor;
-            Console.Write($"\n{userName}> ");
+            Console.Write($"{userName}> ");
             Console.ResetColor();
         }
 
-        /// <summary>
-        /// Displays bot response with box
-        /// </summary>
+        // =========================
+        // BOT RESPONSE (FIXED VERSION)
+        // =========================
         public void DisplayBotResponse(string response)
         {
-            DisplayBox(response, false);
+            Console.ForegroundColor = _primaryColor;
+            Console.WriteLine();
+            Console.WriteLine("BOT SAYS:");
+            Console.ResetColor();
+
+            Console.ForegroundColor = _secondaryColor;
+
+            string[] lines = response.Split('\n');
+
+            foreach (string line in lines)
+            {
+                DisplayWrappedLine(line, Console.WindowWidth - 4);
+            }
+
+            Console.ResetColor();
+            Console.WriteLine();
         }
 
-        /// <summary>
-        /// Displays a typing effect for bot messages
-        /// </summary>
-        public void DisplayTypingEffect(string message, int delayMs = 20)
+        // =========================
+        // TEXT WRAPPING (IMPORTANT FIX)
+        // =========================
+        private void DisplayWrappedLine(string text, int maxWidth)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                Console.WriteLine();
+                return;
+            }
+
+            string[] words = text.Split(' ');
+            string currentLine = "";
+
+            foreach (string word in words)
+            {
+                if ((currentLine + word).Length + 1 > maxWidth)
+                {
+                    Console.WriteLine(currentLine.TrimEnd());
+                    currentLine = "";
+                }
+
+                currentLine += word + " ";
+            }
+
+            if (!string.IsNullOrWhiteSpace(currentLine))
+            {
+                Console.WriteLine(currentLine.TrimEnd());
+            }
+        }
+
+        // =========================
+        // TYPING EFFECT
+        // =========================
+        public void DisplayTypingEffect(string message, int delayMs = 15)
         {
             foreach (char c in message)
             {
@@ -195,56 +154,58 @@ namespace CybersecurityChatbot.Services
             Console.WriteLine();
         }
 
-        /// <summary>
-        /// Clears the console and displays fresh UI
-        /// </summary>
-        public void ClearAndReset()
-        {
-            Console.Clear();
-            DisplayAsciiArt();
-        }
-
-        /// <summary>
-        /// Displays error message
-        /// </summary>
-        public void DisplayError(string message)
-        {
-            Console.ForegroundColor = _errorColor;
-            Console.WriteLine($"  ⚠ Error: {message}");
-            Console.ResetColor();
-        }
-
-        /// <summary>
-        /// Displays info message
-        /// </summary>
-        public void DisplayInfo(string message)
-        {
-            Console.ForegroundColor = _warningColor;
-            Console.WriteLine($"  ℹ {message}");
-            Console.ResetColor();
-        }
-
-        /// <summary>
-        /// Displays success message
-        /// </summary>
-        public void DisplaySuccess(string message)
-        {
-            Console.ForegroundColor = _accentColor;
-            Console.WriteLine($"  ✓ {message}");
-            Console.ResetColor();
-        }
-
-        /// <summary>
-        /// Gets user input with validation
-        /// </summary>
+        // =========================
+        // INPUT
+        // =========================
         public string GetUserInput(string prompt)
         {
             Console.ForegroundColor = _accentColor;
             Console.Write(prompt);
             Console.ResetColor();
-            string input = Console.ReadLine() ?? string.Empty;
-            return input.Trim();
+
+            return Console.ReadLine()?.Trim() ?? "";
+        }
+
+        // =========================
+        // ERROR
+        // =========================
+        public void DisplayError(string message)
+        {
+            Console.ForegroundColor = _errorColor;
+            Console.WriteLine($"[ERROR] {message}");
+            Console.ResetColor();
+        }
+
+        // =========================
+        // INFO
+        // =========================
+        public void DisplayInfo(string message)
+        {
+            Console.ForegroundColor = _infoColor;
+            Console.WriteLine($"[INFO] {message}");
+            Console.ResetColor();
+        }
+
+        // =========================
+        // SUCCESS
+        // =========================
+        public void DisplaySuccess(string message)
+        {
+            Console.ForegroundColor = _accentColor;
+            Console.WriteLine($"[SUCCESS] {message}");
+            Console.ResetColor();
+        }
+
+        // =========================
+        // CENTER TEXT
+        // =========================
+        private string CenterText(string text, int width)
+        {
+            if (string.IsNullOrWhiteSpace(text) || text.Length >= width)
+                return text;
+
+            int leftPadding = (width - text.Length) / 2;
+            return new string(' ', leftPadding) + text;
         }
     }
 }
-
