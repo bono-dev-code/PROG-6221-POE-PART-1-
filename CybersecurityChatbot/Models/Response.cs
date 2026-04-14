@@ -20,7 +20,7 @@ namespace CybersecurityChatbot.Models
     }
 
     /// <summary>
-    /// Static class containing all predefined chatbot responses.
+    /// Static response bank for the chatbot.
     /// </summary>
     public static class ResponseBank
     {
@@ -53,7 +53,7 @@ namespace CybersecurityChatbot.Models
                     new[] { "purpose", "what can you do", "what do you do", "your purpose", "what is your purpose" },
                     new List<string>
                     {
-                        "I am your Cybersecurity Awareness Assistant. I can help you with password safety, phishing, scams, safe browsing, malware, social engineering, suspicious links, and online privacy.",
+                        "I am your Cybersecurity Awareness Assistant. I can help you with password safety, phishing, scams, safe browsing, malware, social engineering, suspicious links, online privacy, and two-factor authentication.",
                         "My purpose is to educate users about cybersecurity threats and teach safe online practices in a simple conversation."
                     },
                     "Purpose"
@@ -74,16 +74,16 @@ namespace CybersecurityChatbot.Models
                         "• Online privacy\n" +
                         "• South African cyber threats",
 
-                        "I can help with many cybersecurity topics such as passwords, phishing, malware, privacy, social engineering, suspicious links, and safe browsing."
+                        "I can help with many cybersecurity topics such as passwords, phishing, malware, privacy, social engineering, suspicious links, safe browsing, and 2FA."
                     },
                     "Help"
                 ),
 
                 new Response(
-                    new[] { "password", "passwords", "strong password", "secure password" },
+                    new[] { "password", "passwords", "strong password", "secure password", "password safety" },
                     new List<string>
                     {
-                        "🔐 PASSWORD SAFETY TIPS:\n" +
+                        "PASSWORD SAFETY TIPS:\n" +
                         "1. Use at least 12 characters.\n" +
                         "2. Mix uppercase letters, lowercase letters, numbers, and symbols.\n" +
                         "3. Do not reuse passwords across accounts.\n" +
@@ -106,21 +106,40 @@ namespace CybersecurityChatbot.Models
                 ),
 
                 new Response(
-                    new[] { "2fa", "two factor authentication", "multi factor authentication", "mfa" },
+                    new[]
+                    {
+                        "2fa",
+                        "two factor authentication",
+                        "two-factor authentication",
+                        "multi factor authentication",
+                        "multi-factor authentication",
+                        "mfa",
+                        "authentication",
+                        "otp",
+                        "one time pin",
+                        "verification code"
+                    },
                     new List<string>
                     {
-                        "🛡️ TWO-FACTOR AUTHENTICATION:\n" +
-                        "Two-factor authentication adds an extra layer of security. Even if someone steals your password, they still need the second verification step to access your account.",
-                        "Enable two-factor authentication on important accounts like email, banking, and social media. It is one of the best ways to reduce account hijacking."
+                        "TWO-FACTOR AUTHENTICATION:\n" +
+                        "Two-factor authentication adds an extra layer of security to your accounts.\n\n" +
+                        "Even if someone steals your password, they still need a second verification step, such as a code sent to your phone, to log in.\n\n" +
+                        "You should enable 2FA on:\n" +
+                        "• Email accounts\n" +
+                        "• Banking apps\n" +
+                        "• Social media\n" +
+                        "• Shopping accounts",
+
+                        "Using two-factor authentication, also called 2FA, is one of the best ways to protect your accounts. Even if your password is compromised, attackers cannot easily log in without the second verification step."
                     },
                     "Authentication"
                 ),
 
                 new Response(
-                    new[] { "phishing", "phish", "scam", "scams", "scam email", "fake email" },
+                    new[] { "phishing", "phishing scams", "phish", "scam", "scams", "scam email", "fake email" },
                     new List<string>
                     {
-                        "🎣 PHISHING AWARENESS:\n" +
+                        "PHISHING AWARENESS:\n" +
                         "Phishing is when criminals pretend to be trusted people or companies to trick you into giving away passwords, banking details, or other personal information.\n\n" +
                         "Warning signs include:\n" +
                         "• Urgent or threatening language\n" +
@@ -138,7 +157,7 @@ namespace CybersecurityChatbot.Models
                     new[] { "safe browsing", "browsing", "internet safety", "online safety", "browse safely" },
                     new List<string>
                     {
-                        "🔗 SAFE BROWSING TIPS:\n" +
+                        "SAFE BROWSING TIPS:\n" +
                         "1. Check for HTTPS before entering personal information.\n" +
                         "2. Avoid downloading files from unknown websites.\n" +
                         "3. Keep your browser updated.\n" +
@@ -154,7 +173,7 @@ namespace CybersecurityChatbot.Models
                     new[] { "malware", "virus", "trojan", "ransomware", "worm" },
                     new List<string>
                     {
-                        "🦠 MALWARE PROTECTION:\n" +
+                        "MALWARE PROTECTION:\n" +
                         "Malware is harmful software that can steal data, damage files, or spy on you. Keep antivirus software updated, avoid suspicious downloads, and never open unknown attachments.",
                         "Signs of malware can include a slow computer, strange pop-ups, missing files, or programs opening on their own. Regular updates and backups help protect you."
                     },
@@ -165,7 +184,7 @@ namespace CybersecurityChatbot.Models
                     new[] { "social engineering", "manipulation", "pretexting", "baiting" },
                     new List<string>
                     {
-                        "🎭 SOCIAL ENGINEERING:\n" +
+                        "SOCIAL ENGINEERING:\n" +
                         "Social engineering is when attackers manipulate people into revealing sensitive information. They often pretend to be trusted people, support staff, or institutions.",
                         "Always verify before sharing information. A convincing story, urgent request, or emotional pressure is often a sign of social engineering."
                     },
@@ -176,7 +195,7 @@ namespace CybersecurityChatbot.Models
                     new[] { "privacy", "online privacy", "protect my privacy" },
                     new List<string>
                     {
-                        "🔒 ONLINE PRIVACY TIPS:\n" +
+                        "ONLINE PRIVACY TIPS:\n" +
                         "Review privacy settings on your social media accounts, share less personal information publicly, use strong passwords, and enable two-factor authentication.",
                         "Protecting your privacy means controlling what you share, who can see it, and how your accounts are secured."
                     },
@@ -207,7 +226,7 @@ namespace CybersecurityChatbot.Models
                     new[] { "south africa", "sa", "south african", "cybercrime act", "sim swap" },
                     new List<string>
                     {
-                        "🇿🇦 SOUTH AFRICAN CYBERSECURITY:\n" +
+                        "SOUTH AFRICAN CYBERSECURITY:\n" +
                         "South Africa faces online banking scams, phishing, SIM swap fraud, fake job scams, and social media impersonation. Citizens should be extra cautious with banking alerts, OTP requests, and calls asking for personal details.",
                         "In South Africa, SIM swap fraud and banking scams are common. Never share one-time pins, account details, or passwords with anyone over the phone."
                     },
@@ -219,7 +238,7 @@ namespace CybersecurityChatbot.Models
                     new List<string>
                     {
                         "Thank you for using the Cybersecurity Awareness Bot. Stay safe online, {userName}!",
-                        "Goodbye, {userName}. Remember: think before you click and protect your information online."
+                        "Goodbye, {userName}. Remember to think before you click and protect your information online."
                     },
                     "Exit"
                 )
